@@ -70,47 +70,71 @@ print("----------------------------------------")
 #! SELF keywrd and methods
 
 
-class Person:
-    company:"Clarusway"
+# class Person:
+#     company:"Clarusway"
 
-    def test(self):
-        print("test")
+#     def test(self):
+#         print("test")
+
+#     def get_details(self):
+#         print(f"{self.name}-{self.age}")
+
+#     def set_details(self, name, age):
+#         self.name = name
+#         self.age = age
+    
+#     @staticmethod
+#     def salute():
+#         print("hi there!")
+
+# person1=Person()
+# person2=Person()
+
+# # person1.test()
+
+# person1.name= "jason"
+# person1.age= 33
+# person1.get_details()
+
+# # person2.name = "henry"
+# # person2.age = 18
+
+# person2.set_details("yasin",33)
+# person2.get_details()
+
+# person1.salute()
+
+#! special methods (init, str)
+
+
+class Person:
+    company = "clarusway"
+    person_count = 0
+
+    def __init__(self,name,age,gender="male"):
+        self.name=name
+        self.age=age
+        self.gender = gender
+        Person.person_count = Person.person_count+1
 
     def get_details(self):
-        print(f"{self.name}-{self.age}")
-
-    def set_details(self, name, age):
-        self.name = name
-        self.age = age
+        print(f"{self.name}-{self.age}-{self.gender}")
 
 
-
-person1=Person()
-person2=Person()
-
-# person1.test()
-
-person1.name= "jason"
-person1.age= 33
-person1.get_details()
-
-# person2.name = "henry"
-# person2.age = 18
-
-person2.set_details("yasin",33)
-person2.get_details()
+    def __str__(self):
+        return f"{self.name} - {self.age}"
 
 
 
+# person1 = Person("jason",33)
+# person1.get_details()
 
+# person2=Person() içine argüman vermezsek hata alırız 
+person2=Person("yasin",22)
+person3=Person("yasin",22)
+person3.get_details()
 
-
-
-
-
-
-
-
+print(Person.person_count)
 
 
 
