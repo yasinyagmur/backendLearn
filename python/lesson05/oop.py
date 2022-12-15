@@ -107,34 +107,75 @@ print("----------------------------------------")
 #! special methods (init, str)
 
 
+# class Person:
+#     company = "clarusway"
+#     person_count = 0
+
+#     def __init__(self,name,age,gender="male"):
+#         self.name=name
+#         self.age=age
+#         self.gender = gender
+#         Person.person_count = Person.person_count+1
+
+#     def get_details(self):
+#         print(f"{self.name}-{self.age}-{self.gender}")
+
+
+#     def __str__(self):
+#         return f"{self.name} - {self.age}"
+
+
+
+# person1 = Person("jason",33)
+# person2=Person("yasin",22)
+
+# person1.get_details()
+
+# person2=Person() içine argüman vermezsek hata alırız 
+# person3=Person("yaya",22)
+# person3.get_details()
+
+# print(Person.person_count)
+# print(person1)
+
+
+#! OOP Principies (4 pillars)
+
+# * encapsulation => izinsiz girişleri ve değiştirmeleri engelleme (python da tam olarak uygulaması yoktur.)
+# * abstraction   => kullanıcın bilmesinin gerek olmayanını gizleme
+# * polymorhism   => overwriting = parent'tan gelen yapı ihtiyacımızı tam karşılamıyorsa update edebilmemiz.
+#* overloading = parent'tan gelen yapıyı farklı parametrelerle değiştirebilmemiz. veya methodu birden farklı tanımlayabilmemizdir. Verilen parametlere göre kendisi seçerek kullanır.
+# * inheritance   => kalıtım. Parent'tan chield'a aktarılması
+
+
 class Person:
     company = "clarusway"
-    person_count = 0
 
-    def __init__(self,name,age,gender="male"):
+    def __init__(self,name,age):
         self.name=name
         self.age=age
-        self.gender = gender
-        Person.person_count = Person.person_count+1
+        self._id = 5000
+        self.__number=200
 
     def get_details(self):
-        print(f"{self.name}-{self.age}-{self.gender}")
+        print(f"{self.name}-{self.age}")
 
 
     def __str__(self):
         return f"{self.name} - {self.age}"
 
+person1 = Person("jason",33)
+print(person1._id)
+person1._id=4000
+print(person1._id)
+
+# print(person1.__number)
+print(person1._Person__number)
 
 
-# person1 = Person("jason",33)
-# person1.get_details()
 
-# person2=Person() içine argüman vermezsek hata alırız 
-person2=Person("yasin",22)
-person3=Person("yasin",22)
-person3.get_details()
 
-print(Person.person_count)
+
 
 
 
