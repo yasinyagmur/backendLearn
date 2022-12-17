@@ -175,40 +175,41 @@ print("----------------------------------------")
 # ? inheritance and polymorphism
 
 
-class Person:
-    company = "clarusway"
+# class Person:
+#     company = "clarusway"
 
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
 
-    def __str__(self):
-        return f"{self.name} - {self.age}"
+#     def __str__(self):
+#         return f"{self.name} - {self.age}"
 
-    def get_details(self):
-        print(self.name, self.age)
-
-
-class Employe(Person):
-
-    def __init__(self, name, age,path):
-        # self.name = name
-        # self.age = age   tekrar tanımlamaya gerek yok super kullanabiliriz
-
-        super().__init__(name,age)
-        self.path = path
-
-    def get_details(self):
-        super().get_details()
-        print(self.path)
+#     def get_details(self):
+#         print(self.name, self.age)
 
 
+# class Employe(Person):
 
-emp1 = Employe("jason",33)
-emp1.get_details()
+#     def __init__(self, name, age,path):
+#         # self.name = name
+#         # self.age = age   tekrar tanımlamaya gerek yok super kullanabiliriz
 
-print(emp1.company)
+#         super().__init__(name,age)
+#         self.path = path
 
+#     def get_details(self):
+#         super().get_details()
+#         print(self.path)
+
+
+
+# emp1 = Employe("jason",33)
+# emp1.get_details()
+
+# print(emp1.company)
+
+# birden fazla class'tan inheritance üretebiliriz.
 
 
 
