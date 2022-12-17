@@ -213,13 +213,89 @@ print("----------------------------------------")
 
 
 
+class Person:
+    company = "clarusway"
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return f"{self.name} - {self.age}"
+
+    def get_details(self):
+        print(self.name, self.age)
 
 
+class Lang:
+    def __init__(self, langs):
+        self.langs = langs
+
+    def display_langs(self):
+        print(self.langs)
+
+# birden fazla class'tan inheritance üretebiliriz.
 
 
+class Employee(Person, Lang):
+    def __init__(self, name, age, path, langs):
+        # self.name = name   # böyle elle de yazabiliriz veya super ile alabiliriz.
+        # self.age = age
+        # super ilk sıraya yazılı olan Person'u tanımlıyor.
+        super().__init__(name, age)
+        # self.langs = langs
+        self.path = path
+        # super kullanamadığımız için bu şekilde yazmamız gerekiyor.
+        Lang.__init__(self, langs)
+
+    def get_details(self):    # overwrite yapmış olduk...
+        print(self.name, self.age, self.path, self.langs)
+        # super().get_details()  # parent'taki özellikleri de kullanmaya bu şekilde devam edebiliriz.
+        # print(self.path)
 
 
+emp1 = Employee("vic", 32, "FS", ["python", "JS"])
+# print(emp1)
+# Person class'ın daki method'ların ve atribute'ların hepsini Employee classında inherit alarak kullanmış olduk.
+emp1.get_details()
+emp1.display_langs()   # Lang classından miras aldı...
 
+
+# ? inner class
+
+
+# class Article(models.Model):
+#     name = models.CharField(max_length=50)
+#     author = models.CharField(max_length=50)
+
+#     class Meta:
+#         ordering = ["name"]
+
+
+#? other topics
+
+# print(Employee.mro()) #mro: method resolution order
+# print(help(Employee))
+# print(emp1.__dict__)
+
+# print(isinstance(emp1, Employee))
+# print(issubclass(Lang, Person))
+
+# getattr(instance, attribute): returns attribute value of instance
+# setattr: update attribute of instance
+# hasattr: return boolean
+# delattr: delete attribute of instance
+
+# print(getattr(emp1, "name"))
+# x = getattr(emp1, "name")
+# print(x)
+
+setattr(emp1, "name", "qadir")
+print(getattr(emp1, "name"))
+
+print(hasattr(emp1, "name"))
+delattr(emp1, "age")
+print(emp1, "age")
 
 
 print("----------------------------------------")
