@@ -148,33 +148,66 @@ print("----------------------------------------")
 # * inheritance   => kalıtım. Parent'tan chield'a aktarılması
 
 
+# class Person:
+#     company = "clarusway"
+
+#     def __init__(self,name,age):
+#         self.name=name
+#         self.age=age
+#         self._id = 5000
+#         self.__number=200
+
+#     def get_details(self):
+#         print(f"{self.name}-{self.age}")
+
+
+#     def __str__(self):
+#         return f"{self.name} - {self.age}"
+
+# person1 = Person("jason",33)
+# print(person1._id)
+# person1._id=4000
+# print(person1._id)
+
+# # print(person1.__number)
+# print(person1._Person__number)
+
+# ? inheritance and polymorphism
+
+
 class Person:
     company = "clarusway"
 
-    def __init__(self,name,age):
-        self.name=name
-        self.age=age
-        self._id = 5000
-        self.__number=200
-
-    def get_details(self):
-        print(f"{self.name}-{self.age}")
-
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
     def __str__(self):
         return f"{self.name} - {self.age}"
 
-person1 = Person("jason",33)
-print(person1._id)
-person1._id=4000
-print(person1._id)
-
-# print(person1.__number)
-print(person1._Person__number)
+    def get_details(self):
+        print(self.name, self.age)
 
 
+class Employe(Person):
+
+    def __init__(self, name, age,path):
+        # self.name = name
+        # self.age = age   tekrar tanımlamaya gerek yok super kullanabiliriz
+
+        super().__init__(name,age)
+        self.path = path
+
+    def get_details(self):
+        super().get_details()
+        print(self.path)
 
 
+
+emp1 = Employe("jason",33)
+emp1.get_details()
+
+print(emp1.company)
 
 
 
