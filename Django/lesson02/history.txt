@@ -1,0 +1,27 @@
+    1  pwd
+    2  dır
+    3  ls
+    4  cd ..
+    5  cd ..
+    6  cd ..
+    7  cd ..
+    8  cd ..
+    9  pwd
+   10  clear
+   11  history
+   12  pyathon --version
+   13  python --version
+   14  pip 3 freeze
+   15  pip3 freeze
+   16  pip install Django==3.2.9
+   17  pip install Django==4.1.1
+   18  pip unistall django
+   19  pip uninstall django
+   20  python -m venv env
+   21  source env/Scripts/Activate
+   22  pip install django
+   23  python.exe -m pip install --upgrade pip~
+   24  -m pip install --upgrade pip
+   25  python -m pip install --upgrade pip
+   26  pip freeze > requirements.txt
+   27  history > histry.txt
