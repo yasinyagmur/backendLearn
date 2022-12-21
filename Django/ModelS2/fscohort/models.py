@@ -17,7 +17,7 @@ class Student(models.Model):
         return f'{self.number} - {self.first_name} {self.last_name}'
 
     class Meta:
-        ordering = ('-number',)
+        ordering = ('number',) # ters sıralama için number başına - konuyor
         verbose_name = 'Öğrenci'
         verbose_name_plural = 'Öğrenciler'
         # db_table = ''  tablo ismini değiştir
