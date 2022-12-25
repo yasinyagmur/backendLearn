@@ -27,11 +27,12 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields = "__all__"  # tüm field kısımlarını alıyor
-        # fields = ["firt_name","last_name"] # sadece istediğimiz filed ksımları alınıyor
+        # fields = "__all__"  # tüm field kısımlarını alıyor
+        fields = ["id", "firt_name", "last_name", "number", "age", "born_year",
+                  "path", "path_id"]  # sadece istediğimiz filed ksımları alınıyor best practies
         # exclude = ["number"]  # belirtilen field hariç geri kalanlar
 
-    def get_born_year(self, obj):
+    def get_born_year(self, obj):  # get_ syntax şekli
         import datetime
         current_time = datetime.datetime.now()
         return current_time.year-obj.age
@@ -39,12 +40,12 @@ class StudentSerializer(serializers.ModelSerializer):
 
 class PathSerializer(serializers.ModelSerializer):
 
-    # students = StudentSerializer(many=True)
-    students = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name="detail"
-    )
+    students = StudentSerializer(many=True)
+    # students = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name="detail"
+    # )
 
     class Meta:
         model = Path
