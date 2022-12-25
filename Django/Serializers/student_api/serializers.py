@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student
+from .models import Student,Path
 
 # class StudentSerializer(serializers.Serializer):
 #     firt_name = serializers.CharField(max_length=50)
@@ -21,8 +21,30 @@ from .models import Student
 
 class StudentSerializer(serializers.ModelSerializer):
 
+    born_year = serializers.SerializerMethodField() # read only
+    path = serializers.StringRelatedField()
+    path_id = serializers.IntegerField()
+
     class Meta:
         model=Student
         fields = "__all__" # tüm field kısımlarını alıyor
         # fields = ["firt_name","last_name"] # sadece istediğimiz filed ksımları alınıyor
         # exclude = ["number"]  # belirtilen field hariç geri kalanlar
+
+    def get_born_year(self,obj):
+        import datetime
+        current_time = datetime.datetime.now()
+        return current_time.year-obj.age
+
+class PathSerializer(serializers.ModelSerializer):
+
+    # students = StudentSerializer(many=True)
+    students = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only= True,
+        view_name= "detail"
+    )
+
+    class Meta:
+        model=Path
+        fields="__all__"
