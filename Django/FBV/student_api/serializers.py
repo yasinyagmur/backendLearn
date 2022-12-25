@@ -28,7 +28,7 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         # fields = "__all__"  # tüm field kısımlarını alıyor
-        fields = ["id", "firt_name", "last_name", "number", "age", "born_year",
+        fields = ["id", "first_name", "last_name", "number", "age", "born_year",
                   "path", "path_id"]  # sadece istediğimiz filed ksımları alınıyor best practies
         # exclude = ["number"]  # belirtilen field hariç geri kalanlar
 
