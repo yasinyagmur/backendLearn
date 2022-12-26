@@ -18,9 +18,11 @@ from .views import (
     # StudentCV,
     # StudentDetailCV
     StudentMVS,
+    PathMVS
 )
 router = routers.DefaultRouter()
 router.register("student", StudentMVS)
+router.register("path", PathMVS)
 
 urlpatterns = [
     path("", home),
