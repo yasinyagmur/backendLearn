@@ -9,7 +9,7 @@ from rest_framework import status
 
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView, mixins, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-
+from rest_framework.viewsets import ModelViewSet
 
 #!! ############################ FUnction Based Views ################################
 
@@ -183,10 +183,32 @@ class StudentDetail(APIView):
         return Response(data)
 
 # ! ^#####################  GENERIC APIVİEW   #################
-# ?-----------Generıc api view
+# ? GenericApıView
+
+# One of the key benefits of class-based views is the way they allow you to compose bits of reusable behavior. REST framework takes advantage of this by providing a number of pre-built views that provide for commonly used patterns.
+
+# GenericAPIView class extends REST framework's APIView class, adding commonly required behavior for standard list and detail views.
+
+# -------------------------
+# Sınıf tabanlı görünümlerin en önemli faydalarından biri, yeniden kullanılabilir davranış parçaları oluşturmanıza izin verme şeklidir. REST çerçevesi, yaygın olarak kullanılan kalıpları sağlayan bir dizi önceden oluşturulmuş görünüm sağlayarak bundan yararlanır.
+
+# GenericAPIView sınıfı, REST çerçevesinin APIView sınıfını genişleterek, standart liste ve ayrıntı görünümleri için yaygın olarak gereken davranışı ekler.
+# -----------------------------
 
 
-# ?-----------Mixins
+# ? Mixins
+
+
+""" - ListModelMixin
+    - list method
+- CreateModelMixin
+    - create method
+- RetrieveModelMixin
+    - retrieve method
+- UpdateModelMixin
+    - update method
+- DestroyModelMixin
+    - destroy method """
 
 
 class StudentGAV(mixins.ListModelMixin, mixins.CreateModelMixin, GenericAPIView):
@@ -223,5 +245,13 @@ class StudentCV(ListCreateAPIView):
 
 class StudentDetailCV(RetrieveUpdateDestroyAPIView):
 
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+
+#! ViewSets
+
+
+class StudentMVS(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer

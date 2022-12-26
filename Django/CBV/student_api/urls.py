@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 from .views import (
     home,
     # ! fuction views
@@ -12,12 +13,14 @@ from .views import (
     # ! class views
     # StudentListCreate,
     # StudentDetail,
-    StudentGAV,
-    StudentDetailGAV,
-    StudentCV,
-    StudentDetailCV
-
+    # StudentGAV,
+    # StudentDetailGAV,
+    # StudentCV,
+    # StudentDetailCV
+    StudentMVS,
 )
+router = routers.DefaultRouter()
+router.register("student", StudentMVS)
 
 urlpatterns = [
     path("", home),
@@ -34,10 +37,13 @@ urlpatterns = [
     # path("student/", StudentListCreate.as_view()),
     # path("student/<int:pk>", StudentDetail.as_view())
     #! mixins
-    path("student/", StudentGAV.as_view()),
-    path("student/<int:pk>", StudentDetailGAV.as_view()),
+    # path("student/", StudentGAV.as_view()),
+    # path("student/<int:pk>", StudentDetailGAV.as_view()),
 
     #! concrete
-    path("student/", StudentCV.as_view()),
-    path("student/<int:pk>", StudentDetailCV.as_view()),
+    # path("student/", StudentCV.as_view()),
+    # path("student/<int:pk>", StudentDetailCV.as_view()),
+    #! viewset
+    path("", include(router.urls))
+
 ]
