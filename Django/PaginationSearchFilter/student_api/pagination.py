@@ -1,6 +1,7 @@
 from rest_framework.pagination import (
     PageNumberPagination,
-    LimitOffsetPagination
+    LimitOffsetPagination,
+    CursorPagination
 )
 
 
@@ -13,3 +14,9 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 10
     limit_query_param = 'adet'
     offset_query_param = 'baslangic'
+
+
+class CustomCursorPagination(CursorPagination):
+    cursor_query_param = 'imlec'
+    page_size = 10
+    ordering = 'id'

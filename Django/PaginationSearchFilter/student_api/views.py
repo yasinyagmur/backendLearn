@@ -1,4 +1,4 @@
-from .pagination import CustomPageNumberPagination, CustomLimitOffsetPagination
+from .pagination import CustomPageNumberPagination, CustomLimitOffsetPagination, CustomCursorPagination
 from django.shortcuts import render, HttpResponse, get_object_or_404
 
 from .models import Student, Path
@@ -260,7 +260,7 @@ class StudentMVS(ModelViewSet):
 
     # pagination_class = CustomPageNumberPagination
     # pagination_class = CustomLimitOffsetPagination
-    # pagination_class = CustomLimitOffsetPagination
+    pagination_class = CustomCursorPagination
 
     @action(detail=False, methods=["GET"])
     def student_count(self, request):
