@@ -21,21 +21,22 @@ from .models import Student, Path
 
 class StudentSerializer(serializers.ModelSerializer):
 
-    born_year = serializers.SerializerMethodField()  # SerializerMethodField read only
+    # born_year = serializers.SerializerMethodField()  # SerializerMethodField read only
     path = serializers.StringRelatedField()  # StringRelatedField read only
     path_id = serializers.IntegerField()
 
     class Meta:
         model = Student
         # fields = "__all__"  # tüm field kısımlarını alıyor
-        fields = ["id", "first_name", "last_name", "number",  "born_year",
+        fields = ["id", "first_name", "last_name", "number",
+                  #  "born_year",
                   "path", "path_id"]  # sadece istediğimiz filed ksımları alınıyor best practies
         # exclude = ["number"]  # belirtilen field hariç geri kalanlar
 
-    def get_born_year(self, obj):  # get_ syntax şekli
-        import datetime
-        current_time = datetime.datetime.now()
-        return current_time.year-obj.age
+    # def get_born_year(self, obj):  # get_ syntax şekli
+    #     import datetime
+    #     current_time = datetime.datetime.now()
+    #     return current_time.year-obj.age
 
 
 class PathSerializer(serializers.ModelSerializer):

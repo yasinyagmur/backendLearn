@@ -1,3 +1,4 @@
+from .pagination import CustomPageNumberPagination
 from django.shortcuts import render, HttpResponse, get_object_or_404
 
 from .models import Student, Path
@@ -256,6 +257,8 @@ class StudentDetailCV(RetrieveUpdateDestroyAPIView):
 class StudentMVS(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+    pagination_class = CustomPageNumberPagination
 
     @action(detail=False, methods=["GET"])
     def student_count(self, request):
