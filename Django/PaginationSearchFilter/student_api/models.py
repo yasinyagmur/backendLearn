@@ -14,6 +14,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     number = models.IntegerField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
     # age = models.IntegerField()
 
     def __str__(self):
