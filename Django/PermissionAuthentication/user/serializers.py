@@ -19,3 +19,20 @@ class RegisterSerializer(serializers.ModelSerializer):
             'password',
             'password2'
         )
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError(
+                {
+                    'password':'password fields didnt match.'
+                }
+            )
+        return attrs
+    
+    def create(self, validated_data):
+        validated_data.pop('password') # password2 kullanılmayacağı için dicten çıkarıldı
+        password = validated_data.pop('password') # passwordu daha sonra set etmek için değişkene atadık
+        user = User.objects.create(**validated_data) #   ** => username=validated_data['username'].....
+        user.set_password(password) #password un encrypte db ye kaydedilmesi
+        user.save()
+        return user
