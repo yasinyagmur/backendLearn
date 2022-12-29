@@ -273,7 +273,7 @@ class StudentMVS(ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['id', 'first_name', 'last_name']
     search_fields = ['first_name', 'last_name']
-# ?permission
+    # ?permission
     # * herkes CRUD yapabilir
     # permission_classes = [IsAuthenticated]
 
@@ -281,7 +281,7 @@ class StudentMVS(ModelViewSet):
     # permission_classes = [IsAdminUser]
 
     # * admin olan herşeyi yapar, olmayan sadece GET(read) yapar.
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminUser]
 
 
 @action(detail=False, methods=["GET"])
