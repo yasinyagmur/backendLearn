@@ -16,8 +16,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             'username',
             'first_name',
             'last_name',
+            'email',
             'password',
-            'password2'
+            'password2',
+
         )
 
     def validate(self, attrs):
@@ -30,7 +32,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
     
     def create(self, validated_data):
-        validated_data.pop('password') # password2 kullanılmayacağı için dicten çıkarıldı
+        validated_data.pop('password2') # password2 kullanılmayacağı için dicten çıkarıldı
         password = validated_data.pop('password') # passwordu daha sonra set etmek için değişkene atadık
         user = User.objects.create(**validated_data) #   ** => username=validated_data['username'].....
         user.set_password(password) #password un encrypte db ye kaydedilmesi
