@@ -1,3 +1,9 @@
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAdminUser,
+    IsAuthenticatedOrReadOnly,
+)
+from .pagination import *
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from .pagination import CustomPageNumberPagination, CustomLimitOffsetPagination, CustomCursorPagination
@@ -261,19 +267,29 @@ class StudentMVS(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
-    # pagination_class = CustomPageNumberPagination
-    # pagination_class = CustomLimitOffsetPagination
-    # pagination_class = CustomCursorPagination
+    pagination_class = CustomPageNumberPagination
+    # pagination_class=CustomLimitOffsetPagination
+    # pagination_class=CustomCursorPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['first_name', 'last_name', 'id']
-    search_fields = ['first_name', 'last_name', 'id']
+    filterset_fields = ['id', 'first_name', 'last_name']
+    search_fields = ['first_name', 'last_name']
+# ?permission
+    # * herkes CRUD yapabilir
+    # permission_classes = [IsAuthenticated]
 
-    @action(detail=False, methods=["GET"])
-    def student_count(self, request):
-        count = {
-            "student-count": self.queryset.count()
-        }
-        return Response(count)
+    # * sadece admin olan CRUD yapabilir
+    # permission_classes = [IsAdminUser]
+
+    # * admin olan herşeyi yapar, olmayan sadece GET(read) yapar.
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+@action(detail=False, methods=["GET"])
+def student_count(self, request):
+    count = {
+        "student-count": self.queryset.count()
+    }
+    return Response(count)
 
 
 class PathMVS(ModelViewSet):
