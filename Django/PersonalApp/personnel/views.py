@@ -1,5 +1,5 @@
 from .models import Department,Personnel
-from .serializers import DepartmentSerializer,PersonnelSerializer
+from .serializers import DepartmentSerializer,PersonnelSerializer,DepartmentPersonnelSerializer
 from .permissions import IsStafforReadOnly,IsOwnerAndStafOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -65,3 +65,10 @@ class PersonalGetUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
                 "message": "Yetkiniz yoktur.."
             }
             return Response(data, status=status.HTTP_401_UNAUTHORIZED)
+class DepartmentPersonnelView(generics.ListAPIView):
+    serializer_class = DepartmentPersonnelSerializer
+    queryset = Department.objects.all()
+
+    def get_queryset(self):
+        name = self.kwargs['department']
+        return Department.objects.filter(name__iexact=name)
