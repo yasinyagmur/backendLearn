@@ -1,5 +1,5 @@
 from .models import Department,Personnel
-from .serializers import DepartmentSerializer
+from .serializers import DepartmentSerializer,PersonnelSerializer
 from .permissions import IsStafforReadOnly
 from rest_framework.permissions import IsAuthenticated
 # Create your views here.
@@ -10,3 +10,6 @@ class DepartmentView(generics.ListCreateAPIView):
     queryset = Department.objects.all()
     permission_classes = [IsAuthenticated,IsStafforReadOnly]
 
+class PersonnelListCreateView(generics.ListCreateAPIView):
+    serializer_class = PersonnelSerializer
+    queryset = Personnel.objects.all()
