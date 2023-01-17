@@ -4,7 +4,7 @@ from .models import Tutorial
 class TutorialSerializer(serializers.ModelSerializer):
     class Meta:
         model=Tutorial
-        fields="__all__"
+        fields=('title')
 
 class TutorialSerializer(serializers.Serializer):
     id= serializers.IntegerField(read_only=True)

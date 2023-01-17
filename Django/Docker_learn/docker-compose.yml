@@ -10,6 +10,7 @@ services:
     restart: on-failure # when restart
     volumes: # external:internal volumes
       - ./backend/db.sqlite3:/backend/db.sqlite3
+      - ./backend:/backend
 
   frontend:
     # container_name: frontend
@@ -21,4 +22,5 @@ services:
     restart: on-failure
     depends_on:
       - backend # first run backend.
-
+    volumes:
+      - ./fronted:/fronted
