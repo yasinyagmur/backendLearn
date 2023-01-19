@@ -177,7 +177,11 @@ actions section:
 
 Add methods to modelAdmin:
 
+
 ```python
+
+from django.utils import timezone
+
 		list_display = ("name", "create_date", "is_in_stock", "update_date", "added_days_ago")    
 	
 	    def added_days_ago(self, product):
