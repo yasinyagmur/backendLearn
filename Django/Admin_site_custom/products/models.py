@@ -1,6 +1,8 @@
 from django.db import models
 # from django.utils import timezone
 
+
+    
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -20,6 +22,11 @@ class Product(models.Model):
     #     fark = timezone.now() - self.create_date
     #     return fark.days
 
+
+    # def how_many_reviews(self):
+    #     count = self.reviews.count()
+    #     return count
+
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     review = models.TextField()
@@ -32,3 +39,4 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.product.name} - {self.review}"  
+

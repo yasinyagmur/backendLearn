@@ -2,8 +2,28 @@ from django.contrib import admin
 from .models import Product, Review
 from django.utils import timezone
 
+
+
+
+# class ReviewInline(admin.TabularInline):  # StackedInline farklı bir görünüm aynı iş
+#     '''Tabular Inline View for '''
+#     model = Review
+#     extra = 1 # yeni yorumlar için boş text açılıyor
+#     classes = ('collapse',) # gizlemek için hide-show
+#     # min_num = 3
+    # max_num = 20
+
+class ReviewInline(admin.StackedInline):  # StackedInline farklı bir görünüm aynı iş
+    '''Tabular Inline View for '''
+    model = Review
+    extra = 1 # yeni yorumlar için boş text açılıyor
+    classes = ('collapse',) # gizlemek için hide-show
+    # min_num = 3
+    # max_num = 20
+
+
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "create_date", "is_in_stock", "update_date" ,"added_days_ago")
+    list_display = ("name", "create_date", "is_in_stock", "update_date" ,"added_days_ago","how_many_reviews",)
     list_editable = ( "is_in_stock",)
     # list_display_links = ("create_date", )
     list_filter = ("is_in_stock", "create_date")
@@ -13,6 +33,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_per_page = 25
     date_hierarchy = "update_date"
     # fields = (('name', 'slug'), 'description', "is_in_stock")
+    inlines = (ReviewInline,)
     fieldsets = (
         (None, {
             "fields": (
@@ -40,6 +61,10 @@ class ProductAdmin(admin.ModelAdmin):
     def added_days_ago(self, product):
         fark = timezone.now() - product.create_date
         return fark.days
+    
+    def how_many_reviews(self,product):
+        count = product.reviews.count()
+        return count
 
 
 class ReviewAdmin(admin.ModelAdmin):
