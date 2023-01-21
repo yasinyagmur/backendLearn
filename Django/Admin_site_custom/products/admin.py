@@ -3,8 +3,10 @@ from .models import Product, Review,Category
 from django.utils import timezone
 
 from django.utils.safestring import mark_safe
+from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
 
-
+from import_export.admin import ImportExportModelAdmin
+from products.resources import ReviewResource
 
 # class ReviewInline(admin.TabularInline):  # StackedInline farklı bir görünüm aynı iş
 #     '''Tabular Inline View for '''
@@ -84,11 +86,15 @@ class ProductAdmin(admin.ModelAdmin):
     bring_img_to_list.short_description = "product_image"
 
 
-class ReviewAdmin(admin.ModelAdmin):
+
+
+class ReviewAdmin(ImportExportModelAdmin):
     list_display = ('__str__', 'created_date', 'is_released')
     list_per_page = 50
-    raw_id_fields = ('product',) 
-
+    list_filter = (
+        ('product', RelatedDropdownFilter),
+    )
+    resource_class = ReviewResource
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Review,ReviewAdmin)
