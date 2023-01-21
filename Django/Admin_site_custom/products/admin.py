@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Product, Review
+from .models import Product, Review,Category
 from django.utils import timezone
 
+from django.utils.safestring import mark_safe
 
 
 
@@ -23,7 +24,7 @@ class ReviewInline(admin.StackedInline):  # StackedInline farklı bir görünüm
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "create_date", "is_in_stock", "update_date" ,"added_days_ago","how_many_reviews",)
+    list_display = ("name", "create_date", "is_in_stock", "update_date" ,"added_days_ago","how_many_reviews", "bring_img_to_list")
     list_editable = ( "is_in_stock",)
     # list_display_links = ("create_date", )
     list_filter = ("is_in_stock", "create_date")
@@ -34,6 +35,9 @@ class ProductAdmin(admin.ModelAdmin):
     date_hierarchy = "update_date"
     # fields = (('name', 'slug'), 'description', "is_in_stock")
     inlines = (ReviewInline,)
+
+    readonly_fields = ("bring_image",)
+
     fieldsets = (
         (None, {
             "fields": (
@@ -43,10 +47,12 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Optionals Settings', {
             "classes" : ("collapse", ),
-            "fields" : ("description",),
+            "fields" : ("product_img", "bring_image","description","categories",),
             'description' : "You can use this section for optionals settings"
         })
     )
+    filter_horizontal = ("categories", )
+    # filter_vertical = ("categories", )
 
     actions = ("is_in_stock", )
     def is_in_stock(self, request, queryset):
@@ -66,6 +72,17 @@ class ProductAdmin(admin.ModelAdmin):
         count = product.reviews.count()
         return count
 
+    def bring_image(self, obj):
+        if obj.product_img:
+            return mark_safe(f"<img src={obj.product_img.url} width=400 height=400></img>")
+        return mark_safe(f"<h3>{obj.name} has not image </h3>")
+
+    def bring_img_to_list(self, obj):
+        if obj.product_img:
+            return mark_safe(f"<img src={obj.product_img.url} width=50 height=50></img>")
+        return mark_safe("******")
+    bring_img_to_list.short_description = "product_image"
+
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'created_date', 'is_released')
@@ -75,6 +92,7 @@ class ReviewAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Review,ReviewAdmin)
+admin.site.register(Category)
 
 # admin.site.site_title = "Clarusway Title"
 # admin.site.site_header = "Clarusway Admin Portal"  

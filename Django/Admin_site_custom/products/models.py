@@ -1,8 +1,18 @@
 from django.db import models
 # from django.utils import timezone
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, verbose_name="category name")
+    is_active = models.BooleanField(default=True)
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        
+    def __str__(self):
+        return self.name
 
-    
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -10,6 +20,8 @@ class Product(models.Model):
     update_date = models.DateTimeField(auto_now=True)
     is_in_stock = models.BooleanField(default=True)
     slug = models.SlugField(null=True, blank=True)
+    categories = models.ManyToManyField(Category, related_name="products")
+    product_img = models.ImageField(null=True, blank=True, default="defaults/clarusway.png",upload_to="product/")
 
     class Meta:
         verbose_name = "Product"
@@ -39,4 +51,3 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.product.name} - {self.review}"  
-
